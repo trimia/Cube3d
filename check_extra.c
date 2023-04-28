@@ -6,7 +6,7 @@
 /*   By: atarsi <atarsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:43:31 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/04 17:53:14 by atarsi           ###   ########.fr       */
+/*   Updated: 2023/04/24 17:42:17 by atarsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,12 @@ void    ft_check_map(char **map)
     }
     if(count != 1)
         ft_error("Map");
+}
+
+void ft_check_angle(float *angle)
+{
+    if (*angle < 0)
+        *angle += 2 * PI;
+    if(*angle > 2 * PI)
+        *angle -= 2 * PI;
 }

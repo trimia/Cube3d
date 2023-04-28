@@ -6,11 +6,34 @@
 /*   By: atarsi <atarsi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 15:17:22 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/04 17:19:24 by atarsi           ###   ########.fr       */
+/*   Updated: 2023/04/22 22:35:21 by atarsi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data.h"
+
+void ft_map_size(t_cube3D *data)
+{
+    int row;
+    int col;
+
+    row = 0;
+    while(data->map[row] != NULL)
+    {
+        col = 0;
+        while(data->map[row][col] != '\0')
+        {
+           
+            col++;
+            if (col > data->widht)
+                data->widht = col;
+        }
+        row++;
+    }
+    data->height = row;
+    //data->widht = col;
+    //printf("%d %d %s\n", data->height, data->widht, "DIOCANE");
+}
 
 int ft_skip_space(char *str)
 {
@@ -34,7 +57,10 @@ char *ft_find_map(int fd)
         while(ft_isspace(str[i]) == 1)
             i++;
         if(str[i] == '1')
+        {
+            
             return (str);
+        }
         free(str);
         str = get_next_line(fd);
     }
@@ -42,23 +68,23 @@ char *ft_find_map(int fd)
     return (0);
 }
 
-void	ft_print_struct(t_cube3D data)
-{
-	int	row;
+// void	ft_print_struct(t_cube3D data)
+// {
+// 	//int	row;
 
-	ft_printf("NO: %s\n", data.NO);
-	ft_printf("SO: %s\n", data.SO);
-	ft_printf("WE: %s\n", data.WE);
-	ft_printf("EA: %s\n", data.EA);
-	ft_printf("F: %d\n", data.F);
-	ft_printf("C: %d\n", data.C);
-	row = 0;
-	while (data.map[row] != NULL)
-	{
-		ft_printf("%s\n", data.map[row]);
-		row++;
-	}
-}
+// 	// ft_printf("NO: %s\n", data.NO);
+// 	// ft_printf("SO: %s\n", data.SO);
+// 	// ft_printf("WE: %s\n", data.WE);
+// 	// ft_printf("EA: %s\n", data.EA);
+// 	// ft_printf("F: %d\n", data.F);
+// 	// ft_printf("C: %d\n", data.C);
+// 	// row = 0;
+// 	// while (data.map[row] != NULL)
+// 	// {
+// 	// 	ft_printf("%s\n", data.map[row]);
+// 	// 	row++;
+// 	// }
+// }
 
 void	ft_free_struct(t_cube3D *data)
 {

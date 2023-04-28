@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:15:25 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/13 16:36:07 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:08:51 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,138 @@
 # define CUBE3D_H
 
 #include "libft/libft.h"
-#include "minilibx/mlx.h"
-// #include "minilibx_mms_20200219/mlx.h"
+#include "amlx/mlx.h"
+// #include "minilibx/mlx.h"
+
 #define PI 3.14159265359
 #define RAD 0.0174533
 
+#define FOV 60
+#define HALF_FOV 30
+#define FOV_R   60 * (PI/180)
+
+#define ROT 0.03299066
+
+//keypress
+# define W		13
+# define A		0
+# define S		1
+# define D		2
+# define LEFT	123
+# define RIGHT	124
+# define ESC	53
+# define    SPEED 0.07
+
+//wallpaper
+
+# define WP		2383707
+
+typedef struct s_ray
+{
+	float   x;
+	float   y;
+}               t_ray;
+
 typedef struct s_player
 {
-
-    int rigth;
-    int left;
+	float     x;
+	float     y;
+	int     w;
+	int     a;
+	int     s;
+	int     d;
+	float   dx;
+	float   dy;
+	float   angle;
+	int     rigth;
+	int     left;
 }              t_player;
+
+typedef struct s_image
+{
+	void    *img;
+	char    *addr;
+	int     l_bytes;
+	int     bfp;
+	int     endian;
+}               t_image;
+
+typedef struct s_casting
+{
+	t_ray	plane;
+	
+}               t_casting;
 
 typedef struct s_cube3D
 {
-    char    *NO;
-    char    *SO;
-    char    *WE;
-    char    *EA;
-    char    *DO;
-    int     F;
-    int     C;
-    int     height;
-    int     widht;
-    int     s_h;
-    int     s_w;
-    void    *mlx;
-    void    *win;
-    char    **map;
-    //t_text  text[5];
-    //t_player    p;
-    int     frame;
+	char    *NO;
+	char    *SO;
+	char    *WE;
+	char    *EA;
+	char    *DO;
+	int     F;
+	int     C;
+	int     height;
+	int     widht;
+	int     mm_H;
+	int     mm_W;
+	int     cH_size;
+	int     cW_size;
+	int     s_h;
+	int     s_w;
+	// int     mini_cell_h;
+	// int     mini_cell_w;
+	void    *mlx;
+	void    *win;
+	char    **map;
+	
+	int     frame;
+	//t_text  text[5];
+	t_casting	raycast;
+	t_player    p;
+	t_image     img;
+	t_ray       ray;
 }               t_cube3D;
+
 
 
 //init
 
-void ft_init_info(t_cube3D *data);
+void    ft_init_info(t_cube3D *data);
+void    ft_init(t_cube3D *data);
+void    ft_map_size(t_cube3D *data);
 //utility
-int ft_skip_space(char *str);
-char *ft_find_map(int fd);
+int     ft_skip_space(char *str);
+char    *ft_find_map(int fd);
 void	ft_print_struct(t_cube3D data);
 void	ft_free_struct(t_cube3D *data);
 
 //check
 void    ft_check_map(char **map);
-void ft_check_file(char *file_name);
-void ft_check_info(t_cube3D *data);
+void    ft_check_file(char *file_name);
+void    ft_check_info(t_cube3D *data);
+void    ft_check_angle(float *angle);
+
 //read_file
 
 void    ft_get_info(t_cube3D *data, int fd);
-char **ft_fill_map(char *str, char **matrix, int fd, char *file_name);
+// char **ft_fill_map(char *str, char **matrix, int fd, char *file_name);
+void	ft_fill_map(char *str, int fd, char *file_name, t_cube3D *data);
 
 //movements
-int	ft_on(int keycode, t_cube3D *data);
-int ft_off(int keycode, t_cube3D *data);
+int     ft_on(int keycode, t_cube3D *data);
+int     ft_off(int keycode, t_cube3D *data);
+void    ft_movements(t_cube3D *data);
+
+//draw
+void	my_pixel_put(t_cube3D *data, int x, int y, int color);
+void    ft_draw_player(t_cube3D *data, int x, int y);
+void    ft_draw_cell(t_cube3D *data, int x, int y, int c);
+int     ft_draw(t_cube3D *data);
+//gnlcube
+int	ft_gnlstrlen(const char *str);
+int	toomanylines(char *s1, char *s2);
+char	*ft_gnlstrjoin(char *s1, char *s2);
+
 
 #endif
