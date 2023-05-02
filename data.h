@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:15:25 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/28 16:08:51 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:05:17 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,19 @@
 # define ESC	53
 # define    SPEED 0.07
 
+//texture
+#define texWidth 64
+#define texHeight 64
+
 //wallpaper
 
 # define WP		2383707
 
 typedef struct s_ray
 {
-	float   x;
-	float   y;
+	float   x;         //origine X raggio
+	float   y;         //origine Y raggio
+	float   dist;      // distanza origine-muro raggio
 }               t_ray;
 
 typedef struct s_player
@@ -73,39 +78,40 @@ typedef struct s_image
 typedef struct s_casting
 {
 	t_ray	plane;
+	int		**texture;
+	int		**buf;
+
 	
 }               t_casting;
 
 typedef struct s_cube3D
 {
-	char    *NO;
-	char    *SO;
-	char    *WE;
-	char    *EA;
-	char    *DO;
-	int     F;
-	int     C;
-	int     height;
-	int     widht;
-	int     mm_H;
-	int     mm_W;
-	int     cH_size;
-	int     cW_size;
-	int     s_h;
-	int     s_w;
-	// int     mini_cell_h;
-	// int     mini_cell_w;
-	void    *mlx;
-	void    *win;
-	char    **map;
-	
-	int     frame;
-	//t_text  text[5];
+	char		*NO;
+	char		*SO;
+	char		*WE;
+	char		*EA;
+	char		*DO;
+	int			F;
+	int			C;
+	int			height;		//numerorighemappa
+	int			widht;		//numerocolonnemappa
+	int			mm_H;		//minimappsize(altezza)
+	int			mm_W;		//minimappsize(larghezza)
+	int			cH_size;		//cellamatricesize(altezza)
+	int			cW_size;		//cellamatricesize(larghezza)
+	int			s_h;			//screensizealtezza
+	int			s_w;			//screensizelarghezza
+	//int		mini_cell_h;
+	//int		mini_cell_w;
+	void		*mlx;
+	void		*win;
+	char		**map;
+	int			frame;
+	t_player	p;
+	t_image		img;
+	t_ray		ray;
 	t_casting	raycast;
-	t_player    p;
-	t_image     img;
-	t_ray       ray;
-}               t_cube3D;
+}				t_cube3D;
 
 
 
@@ -129,7 +135,7 @@ void    ft_check_angle(float *angle);
 //read_file
 
 void    ft_get_info(t_cube3D *data, int fd);
-// char **ft_fill_map(char *str, char **matrix, int fd, char *file_name);
+// char **ft_fill_map(char *str, char **matrix, int fd, char *file_name, t_cube3D *data);
 void	ft_fill_map(char *str, int fd, char *file_name, t_cube3D *data);
 
 //movements

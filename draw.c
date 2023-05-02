@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:39:04 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/28 16:54:38 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:03:50 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,15 @@ void ft_raycasting(t_cube3D *data)
         rayangle += increment;
         i++;
     }
+    data->ray.dist = sqrtf(powf(data->p.x - data->ray.x, 2) + powf(data->p.y - data->ray.y, 2));
+    data->ray.dist *= cos((rayangle - data->p.angle));
 }
 
 int    ft_draw(t_cube3D *data)
 {
     ft_movements(data);
     ft_draw_minimap(data);
-    // ft_raycasting(data);
+    ft_raycasting(data);
     mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
     return(0);
 }

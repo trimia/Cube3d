@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:36:35 by mmariani          #+#    #+#             */
-/*   Updated: 2023/04/28 16:12:31 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/02 19:04:28 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void floor_casting(t_cube3D *data)
 {
     int y;
+    int x;
     float rayDirX0;
 	float rayDirY0;
 	float rayDirX1;
@@ -25,15 +26,70 @@ void floor_casting(t_cube3D *data)
     
 
     y = 0;
+    x = 0;
     while(y < data->s_h )
     {
 		rayDirX0 = data->ray.x - data->raycast.plane.x;
 		rayDirY0 = data->ray.y - data->raycast.plane.y;
 		rayDirX1 = data->ray.x + data->raycast.plane.x;
 		rayDirY1 = data->ray.y + data->raycast.plane.y;
+		// Current y position compared to the center of the screen (the horizon)
+		int p = y - data->s_h / 2;
+
+		// Vertical position of the camera.
+		float posZ = 0.5 * data->s_h;
+
+		// Horizontal distance from the camera to the floor for the current row.
+		// 0.5 is the z position exactly in the middle between floor and ceiling.
+		float rowDistance = posZ / p;
+
+		// calculate the real world step vector we have to add for each x (parallel to camera plane)
+		// adding step by step avoids multiplications with a weight in the inner loop
+		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / data->s_w;
+		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / data->s_w;
+
+		// real world coordinates of the leftmost column. This will be updated as we step to the right.
+		float floorX = data->p.x + rowDistance * rayDirX0;
+		float floorY = data->p.y + rowDistance * rayDirY0;
 		
+		while(x < data->s_h)
+		{
+			// the cell coord is simply got from the integer parts of floorX and floorY
+			int cellX = (int)(floorX);
+			int cellY = (int)(floorY);
+
+			// get the texture coordinate from the fractional part
+			int tx = (int)(texWidth * (floorX - cellX)) & (texWidth - 1);
+			int ty = (int)(texHeight * (floorY - cellY)) & (texHeight - 1);
+
+			floorX += floorStepX;
+			floorY += floorStepY;
+
+			// choose texture and draw the pixel
+			int floorTexture = 3;
+			int ceilingTexture = 6;
+
+			int color;
+
+			// floor
+			color = data->raycast.texture[floorTexture][texWidth * ty + tx];
+			color = (color >> 1) & 8355711; // make a bit darker
+
+			data->raycast.buf[y][x] = color;
+
+			//ceiling (symmetrical, at screenHeight - y - 1 instead of y)
+			color = data->raycast.texture[ceilingTexture][texWidth * ty + tx];
+			color = (color >> 1) & 8355711; // make a bit darker
+
+			data->raycast.buf[data->s_h - y - 1][x] = color;
+			x++;
+		}
         y++;
     }
+}
+void wall_casting(t_cube3D *data)
+{
+	
 }
 
 void	calc(t_info *info)
@@ -95,7 +151,7 @@ void	calc(t_info *info)
 			color = info->texture[ceilingTexture][texWidth * ty + tx];
 			color = (color >> 1) & 8355711; // make a bit darker
 
-			info->buf[height - y - 1][x] = color;
+			info->buf[ - y - 1][x] = color;
 		}
 	}
 	//WALL CASTING
