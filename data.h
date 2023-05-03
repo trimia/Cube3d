@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:15:25 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/02 19:05:17 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:37:55 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,20 @@ typedef struct s_casting
 	
 }               t_casting;
 
+typedef struct s_map
+{
+	char	*north_texture_path;
+	char	*south_texture_path;
+	char	*west_texture_path;
+	char	*east_texture_path;
+	char	**map;
+	int		mm_H;		//minimappsize(altezza)
+	int		mm_W;		//minimappsize(larghezza)
+	int		floor_color;
+	int		ceiling_color;
+}			t_map;
+
+
 typedef struct s_cube3D
 {
 	char		*NO;
@@ -95,8 +109,8 @@ typedef struct s_cube3D
 	int			C;
 	int			height;		//numerorighemappa
 	int			widht;		//numerocolonnemappa
-	int			mm_H;		//minimappsize(altezza)
-	int			mm_W;		//minimappsize(larghezza)
+	// int			mm_H;		//minimappsize(altezza)
+	// int			mm_W;		//minimappsize(larghezza)
 	int			cH_size;		//cellamatricesize(altezza)
 	int			cW_size;		//cellamatricesize(larghezza)
 	int			s_h;			//screensizealtezza
@@ -105,12 +119,13 @@ typedef struct s_cube3D
 	//int		mini_cell_w;
 	void		*mlx;
 	void		*win;
-	char		**map;
+	// char		**map;
 	int			frame;
 	t_player	p;
 	t_image		img;
 	t_ray		ray;
 	t_casting	raycast;
+	t_map		map;
 }				t_cube3D;
 
 

@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 15:08:51 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/28 16:55:29 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:42:50 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void    ft_init_image(t_cube3D *data)
 {
-    data->mm_H = data->s_h / 2;
-    data->mm_W = data->s_w / 2;
-    data->cH_size = (data->mm_H / 3 / data->height);
-    data->cW_size = (data->mm_W / data->widht);
+    data->map.mm_H = data->s_h / 2;
+    data->map.mm_W = data->s_w / 2;
+    data->cH_size = (data->map.mm_H / 3 / data->height);
+    data->cW_size = (data->map.mm_W / data->widht);
     data->img.img = mlx_new_image(data->mlx, data->s_w, data->s_h);
     data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bfp, &data->img.l_bytes, &data->img.endian);
 }
@@ -53,12 +53,12 @@ void ft_find_p(t_cube3D *data)
     int col;
 
     row = 0;
-    while(data->map[row] != NULL)
+    while(data->map.map[row] != NULL)
     {
         col = 0;
-        while(data->map[row][col] != '\0')
+        while(data->map.map[row][col] != '\0')
         {
-            c = data->map[row][col];
+            c = data->map.map[row][col];
             if(c == 'N' || c == 'S' || c == 'W' || c == 'E')
             {
                 ft_init_player(data, c);
@@ -85,8 +85,8 @@ void    ft_init(t_cube3D *data)
     data->p.left = 0;
     data->cH_size = 0;
     data->cW_size = 0;
-    data->mm_H = 0;
-    data->mm_W = 0;
+    data->map.mm_H = 0;
+    data->map.mm_W = 0;
     data->p.dx = cos(data->p.angle);
     data->p.dy = sin(data->p.angle);
     data->mlx = mlx_init();

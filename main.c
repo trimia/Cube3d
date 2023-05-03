@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:40:08 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/28 14:47:05 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:40:13 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void    ft_read_file(char *file_name, t_cube3D *data)
     ft_fill_map(str, fd, file_name, data);
     ft_map_size(data);
     printf("%d %d\n", data->height, data->widht);
-    ft_check_map(data->map);
+    ft_check_map(data->map.map);
 
     close(fd);
 }

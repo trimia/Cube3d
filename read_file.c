@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 15:14:13 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/28 15:31:30 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:39:38 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_fill_map(char *str, int fd, char *file_name, t_cube3D *data)
 		str = get_next_line(fd);
 		printf("%s", str); //				printf
 	}
-	data->map=ft_split(matrix,'\n');
+	data->map.map=ft_split(matrix,'\n');
 	
 	close(fd);
 }

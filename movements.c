@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarsi <atarsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 12:22:55 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/24 17:58:45 by atarsi           ###   ########.fr       */
+/*   Updated: 2023/05/03 18:43:21 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void ft_move(float m_x, float m_y, t_cube3D *data)
     float   i;
     
     i = (data->p.x + m_x);
-    if (data->map[(int)data->p.y][(int)i] != '1')
+    if (data->map.map[(int)data->p.y][(int)i] != '1')
         data->p.x += m_x;
     i = (data->p.y + m_y);
-    if (data->map[(int)i][(int)data->p.x] != '1')
+    if (data->map.map[(int)i][(int)data->p.x] != '1')
         data->p.y += m_y;
 }
 

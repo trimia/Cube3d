@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utility.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarsi <atarsi@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 15:17:22 by atarsi            #+#    #+#             */
-/*   Updated: 2023/04/22 22:35:21 by atarsi           ###   ########.fr       */
+/*   Updated: 2023/05/03 18:40:48 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void ft_map_size(t_cube3D *data)
     int col;
 
     row = 0;
-    while(data->map[row] != NULL)
+    while(data->map.map[row] != NULL)
     {
         col = 0;
-        while(data->map[row][col] != '\0')
+        while(data->map.map[row][col] != '\0')
         {
            
             col++;
@@ -92,5 +92,5 @@ void	ft_free_struct(t_cube3D *data)
 	free(data->SO);
 	free(data->WE);
 	free(data->EA);
-	ft_free_matrix((void **)data->map);
+	ft_free_matrix((void **)data->map.map);
 }
