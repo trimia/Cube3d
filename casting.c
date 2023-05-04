@@ -6,11 +6,65 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:36:35 by mmariani          #+#    #+#             */
-/*   Updated: 2023/05/03 18:46:00 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:18:56 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data.h"
+
+
+void cast(t_cube3D *data)
+{
+	data->s_w;	//dim schermo x
+	data->s_h;	//dim schermo y
+	data->p.x;	//pos x player
+	data->p.y;	//pos y player
+
+	int cell_x = data->p.x >> 6; //is like dividere per 64 2^6	
+	int cell_y = data->p.y >> 6;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void	background(t_cube3D *data)
 {

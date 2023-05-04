@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:39:04 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/03 19:20:12 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:37:49 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    ft_draw_minimap(t_cube3D *data)
 		i++;
 	ft_draw_player(data, data->p.x * data->cW_size, data->p.y * data->cH_size);
 	//printf("%f\n", data->p.angle);
-	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
+	// mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	}
 }
 
@@ -60,8 +60,8 @@ void ft_traceray(float rayangle, t_cube3D *data)
 	t_ray   r;
 
 	//rayangle *= (PI/180);
-	cos_ray = cos(rayangle) / 256;
-	sin_ray = sin(rayangle) / 256;
+	cos_ray = (cos(rayangle)) / 256;
+	sin_ray = (sin(rayangle)) / 256;
 	r.x = data->p.x;
 	r.y = data->p.y;
 
@@ -69,6 +69,7 @@ void ft_traceray(float rayangle, t_cube3D *data)
 	{
 		r.x += cos_ray;
 		r.y += sin_ray;
+		// printf(" rx=%f ry=%f\n",r.x,r.y);
 		my_pixel_put(data, (int)(r.x * data->cW_size), (int)(r.y * data->cH_size), 16449536);
 	}
 }
@@ -77,31 +78,69 @@ void ft_raycasting(t_cube3D *data)
 {
 	float   rayangle;
 	float   increment;
-	int     i;
+	// int     i;
 	// float   h_fov;
 
 	//h_fov = HALF_FOV * (PI/180);
 	// printf("%f\n", data->p.angle);
 	rayangle = data->p.angle - (FOV_R/2);
-	printf("%f\n", rayangle);
+	// printf("pangle%f\n", data->p.angle);
 	increment = (float)FOV / (float)data->s_w;
-	i = 0;
-	while(rayangle < data->p.angle + (FOV_R/2))
+	printf("%f\n",(float)FOV_R);
+	while(rayangle < data->p.angle +FOV_R/2)
 	{
 		ft_traceray(rayangle, data);
 		rayangle += increment;
-		i++;
+		// printf("rayangle=%f\n",rayangle);
 	}
 	data->ray.dist = sqrtf(powf(data->p.x - data->ray.x, 2) + powf(data->p.y - data->ray.y, 2));
 	data->ray.dist *= cos((rayangle - data->p.angle));
 }
+double	our_modulo(double x, double y)
+{
+	while (x >= y && y != 0)
+	{
+		x -= y;
+	}
+	return (x);
+}
+void drawwall(t_cube3D *data)
+{
+	float h_wall = data->ray.dist;
+	float rayangle = data->p.angle - (FOV_R/2);
 
+	t_ray   r;
+
+	r.x = data->p.x;
+	r.y=data->s_h -h_wall/2;
+
+	while(data->p.x < data->s_h)
+	{
+		while(r.y < )
+		{
+			r.x = data->p.x;
+			r.y++;
+			// printf(" rx=%f ry=%f\n",r.x,r.y);
+			my_pixel_put(data, (int)(r.x * data->cW_size), (int)(r.y * data->cH_size), 0xFF00);
+		}
+	}
+	
+}
 int    ft_draw(t_cube3D *data)
 {
+	int frame =0;
+	
 	ft_movements(data);
 	ft_draw_minimap(data);
-	ft_raycasting(data);
-	//ft_
+	if(frame < 20)
+		{
+			ft_raycasting(data);
+			frame++;
+			if (frame==20)
+				frame =0;
+		}
+	drawwall(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	return(0);
 }
+
