@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:15:25 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/03 18:37:55 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:39:24 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 #define FOV_R   60 * (PI/180)
 
 #define ROT 0.03299066
+#define HEIGHT	1024	// 2^10
+#define WEIGHT	2048	// 2^11
 
 //keypress
 # define W		13
@@ -34,7 +36,10 @@
 # define LEFT	123
 # define RIGHT	124
 # define ESC	53
-# define    SPEED 0.07
+# define SPEED	0.07
+#define COLOR_PURPLE 16711935
+#define COLOR_GREEN 65280
+#define COLOR_BLUE 7190271
 
 //texture
 #define texWidth 64
@@ -49,6 +54,7 @@ typedef struct s_ray
 	float   x;         //origine X raggio
 	float   y;         //origine Y raggio
 	float   dist;      // distanza origine-muro raggio
+	float	rayangle;
 }               t_ray;
 
 typedef struct s_player
@@ -163,6 +169,8 @@ void	my_pixel_put(t_cube3D *data, int x, int y, int color);
 void    ft_draw_player(t_cube3D *data, int x, int y);
 void    ft_draw_cell(t_cube3D *data, int x, int y, int c);
 int     ft_draw(t_cube3D *data);
+void	drawgri(t_cube3D *data);
+
 //gnlcube
 int	ft_gnlstrlen(const char *str);
 int	toomanylines(char *s1, char *s2);
@@ -170,3 +178,6 @@ char	*ft_gnlstrjoin(char *s1, char *s2);
 
 
 #endif
+
+
+

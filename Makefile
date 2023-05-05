@@ -3,7 +3,7 @@ NAME= cub3d
 CC = gcc
 SRC = main.c read_file.c utility.c init.c check.c check_extra.c draw_utils.c draw.c movements.c gnlcube.c 
 OBJS = $(SRC:.c=.o)
-FLAG = -g -Wall -Werror -Wextra
+FLAG = -g #-Wall -Werror -Wextra
 LIB = ./libft/libft.a
 MLX = ./libmlx.dylib
 MLXA = ./libmlx.dylib

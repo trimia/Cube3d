@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 15:14:13 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/03 18:39:38 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/05 15:41:55 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int ft_parse_info(t_cube3D *data, char *str)
 	else if(*str == 'F' && data->F == -1)
 	   data->F = 1;
 	else if(*str == 'C' && data->C == -1)
-	   data->C = 1;
+	   data->C = 1;	
 	else
 		return(0);
 	return (1);        
