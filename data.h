@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:15:25 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/05 16:39:24 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:02:07 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define LEFT	123
 # define RIGHT	124
 # define ESC	53
-# define SPEED	0.07
+# define SPEED	0.20
 #define COLOR_PURPLE 16711935
 #define COLOR_GREEN 65280
 #define COLOR_BLUE 7190271
@@ -49,12 +49,21 @@
 
 # define WP		2383707
 
+// typedef struct s_ray
+// {
+// 	float   x;         //origine X raggio
+// 	float   y;         //origine Y raggio
+// 	float   dist;      // distanza origine-muro raggio
+// 	float	rayangle;
+// }               t_ray;
+
 typedef struct s_ray
 {
-	float   x;         //origine X raggio
-	float   y;         //origine Y raggio
-	float   dist;      // distanza origine-muro raggio
-	float	rayangle;
+    float   x;         //origine X raggio
+    float   y;         //origine Y raggio
+    float   dist;      // distanza origine-muro raggio
+    float   wall;      // dimensione muro
+    int     w_x;
 }               t_ray;
 
 typedef struct s_player
@@ -129,6 +138,7 @@ typedef struct s_cube3D
 	int			frame;
 	t_player	p;
 	t_image		img;
+	t_image		minimap;
 	t_ray		ray;
 	t_casting	raycast;
 	t_map		map;
@@ -170,6 +180,8 @@ void    ft_draw_player(t_cube3D *data, int x, int y);
 void    ft_draw_cell(t_cube3D *data, int x, int y, int c);
 int     ft_draw(t_cube3D *data);
 void	drawgri(t_cube3D *data);
+void    ft_render_game(t_cube3D *data, t_ray *r);
+
 
 //gnlcube
 int	ft_gnlstrlen(const char *str);

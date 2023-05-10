@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 15:08:51 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/05 12:36:30 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/10 19:41:14 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void    ft_init_image(t_cube3D *data)
 {
-    // data->map.mm_H = data->s_h / 3;
-    // data->map.mm_W = data->s_w / 3;
-    data->cH_size = 16;
-    data->cW_size = 16;
+    data->map.mm_H = data->s_h / 2;
+    data->map.mm_W = data->s_w / 2;
+    data->cH_size = (data->map.mm_H / 3 / data->height);
+    data->cW_size = (data->map.mm_W / data->widht);
     data->img.img = mlx_new_image(data->mlx, data->s_w, data->s_h);
+    data->minimap.img = mlx_new_image(data->mlx, 200, 500);
     data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bfp, &data->img.l_bytes, &data->img.endian);
+	data->minimap.addr = mlx_get_data_addr(data->minimap.img, &data->minimap.bfp, &data->minimap.l_bytes, &data->minimap.endian);
 }
 
 void ft_init_info(t_cube3D *data)
@@ -81,6 +83,7 @@ void    ft_init(t_cube3D *data)
     data->p.d = 0;
     // data->mini_cell_h = 0;
     // data->mini_cell_w = 0;
+    data->ray.w_x = 0;
     data->p.rigth = 0;
     data->p.left = 0;
     data->cH_size = 0;
@@ -90,9 +93,9 @@ void    ft_init(t_cube3D *data)
     data->p.dx = cos(data->p.angle);
     data->p.dy = sin(data->p.angle);
     data->mlx = mlx_init();
-    // mlx_get_screen_size(data->mlx, &data->s_h, &data->s_w);
-    data->s_h=HEIGHT;
-    data->s_w=WEIGHT;
+    mlx_get_screen_size(data->mlx, &data->s_h, &data->s_w);
+    // data->s_h=HEIGHT;
+    // data->s_w=WEIGHT;
     printf("%d %d\n", data->s_h, data->s_w);
     data->win = mlx_new_window(data->mlx, data->s_w, data->s_h, "cub3D");
     ft_init_image(data);

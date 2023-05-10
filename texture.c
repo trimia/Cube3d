@@ -6,11 +6,13 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:54:42 by mmariani          #+#    #+#             */
-/*   Updated: 2023/05/03 18:26:41 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:57:50 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	load_image(t_info *info, int *texture, char *path, t_img *img)
+
+//carica img e riempe le texture dalle xpm forse vanno allocate
+void	load_image(t_info *info, int *texture, char *path, t_img *img) 
 {
 	img->img = mlx_xpm_file_to_image(info->mlx, path, &img->img_width, &img->img_height);
 	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
@@ -23,7 +25,7 @@ void	load_image(t_info *info, int *texture, char *path, t_img *img)
 	}
 	mlx_destroy_image(info->mlx, img->img);
 }
-
+//carica singole texture ho preso quelle che ho trovato sul lsample di minilibx
 void	load_texture(t_info *info)
 {
 	t_img	img;
@@ -36,4 +38,20 @@ void	load_texture(t_info *info)
 	load_image(info, info->texture[5], "textures/mossy.xpm", &img);
 	load_image(info, info->texture[6], "textures/wood.xpm", &img);
 	load_image(info, info->texture[7], "textures/colorstone.xpm", &img);
+}
+//funzione che ritorna il colore delle texture da passare a put pixel
+unsigned int	get_color(t_image *tex, int x, int y, t_rules *rules)
+{
+	if (!(x < 0 || x > rules->mlx.win_width - 1
+			|| y < 0 || y > rules->mlx.win_height - 1))
+	{
+		return (*(unsigned int *)(tex->addr + (4 * (tex->width * y + x)))); //non capisco perche moltiplica per 4
+	
+	}
+	return (0x0);
+}
+//funzione che ritorna il colore letto da f e c "conversione da rgb a unsigned int" l'ultimo credo sia il canale alpha
+unsigned int	get_color_arr(unsigned char arr[3])
+{
+	return (*(unsigned int *)(unsigned char [4]){arr[2], arr[1], arr[0], 0});
 }
