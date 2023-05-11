@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 15:17:22 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/03 18:40:48 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:30:47 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void ft_map_size(t_cube3D *data)
         {
            
             col++;
-            if (col > data->widht)
-                data->widht = col;
+            if (col > data->col)
+                data->col = col;
         }
         row++;
     }
-    data->height = row;
-    //data->widht = col;
-    //printf("%d %d %s\n", data->height, data->widht, "DIOCANE");
+    data->row = row;
+    //data->col = col;
+    //printf("%d %d %s\n", data->row, data->col, "DIOCANE");
 }
 
 int ft_skip_space(char *str)

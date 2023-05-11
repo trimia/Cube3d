@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:15:25 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/10 19:02:07 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:32:42 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,20 @@ typedef struct s_player
 typedef struct s_image
 {
 	void    *img;
-	char    *addr;
+	int    *addr;
 	int     l_bytes;
 	int     bfp;
 	int     endian;
 }               t_image;
+
+typedef struct s_img
+{
+	void    *img;
+	char    *addr;
+	int     l_bytes;
+	int     bfp;
+	int     endian;
+}               t_img;
 
 typedef struct s_casting
 {
@@ -122,12 +131,13 @@ typedef struct s_cube3D
 	char		*DO;
 	int			F;
 	int			C;
-	int			height;		//numerorighemappa
-	int			widht;		//numerocolonnemappa
+	int			row;		//numerorighemappa
+	int			col;		//numerocolonnemappa
 	// int			mm_H;		//minimappsize(altezza)
 	// int			mm_W;		//minimappsize(larghezza)
 	int			cH_size;		//cellamatricesize(altezza)
 	int			cW_size;		//cellamatricesize(larghezza)
+	int			cellsize;
 	int			s_h;			//screensizealtezza
 	int			s_w;			//screensizelarghezza
 	//int		mini_cell_h;
@@ -137,7 +147,7 @@ typedef struct s_cube3D
 	// char		**map;
 	int			frame;
 	t_player	p;
-	t_image		img;
+	t_img		img;
 	t_image		minimap;
 	t_ray		ray;
 	t_casting	raycast;
@@ -175,12 +185,17 @@ int     ft_off(int keycode, t_cube3D *data);
 void    ft_movements(t_cube3D *data);
 
 //draw
-void	my_pixel_put(t_cube3D *data, int x, int y, int color);
+void	my_pixel_put(t_img *img, int x, int y, int color);
 void    ft_draw_player(t_cube3D *data, int x, int y);
 void    ft_draw_cell(t_cube3D *data, int x, int y, int c);
 int     ft_draw(t_cube3D *data);
 void	drawgri(t_cube3D *data);
 void    ft_render_game(t_cube3D *data, t_ray *r);
+int		draw_map(int p_w, int p_h, t_cube3D *data);
+int		draw(t_cube3D *data, int (*comp)(int, int, t_cube3D *));
+int		drawp(t_cube3D *data, int (*comp)(int, int, t_cube3D *,t_ray *),t_ray *r);
+int		draw_play(int p_w, int p_h, t_cube3D *data,t_ray *r);
+
 
 
 //gnlcube

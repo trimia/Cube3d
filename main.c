@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 14:40:08 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/03 18:40:13 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:29:25 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void    ft_read_file(char *file_name, t_cube3D *data)
     int     fd;
     char    *str;
 
-    data->height = 0;
-    data->widht = 0;
+    data->row = 0;
+    data->col = 0;
     ft_init_info(data);
     fd = open(file_name, O_RDONLY);
     ft_get_info(data, fd);
@@ -28,7 +28,7 @@ void    ft_read_file(char *file_name, t_cube3D *data)
     str = ft_find_map(fd);
     ft_fill_map(str, fd, file_name, data);
     ft_map_size(data);
-    printf("%d %d\n", data->height, data->widht);
+    // printf("%d %d\n", data->height, data->widht);
     ft_check_map(data->map.map);
 
     close(fd);

@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:36:35 by mmariani          #+#    #+#             */
-/*   Updated: 2023/05/04 15:18:56 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:47:42 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,4 +475,39 @@ void	calc(t_info *info)
 			info->buf[height - y][x] = info->texture[6][texWidth * floorTexY + floorTexX];
 		}
 	}
+}
+
+
+
+int		drawp(t_cube3D *data, int (*comp)(int, int, t_cube3D *,t_ray *), t_ray *r)
+{
+	int	pixel_w;
+	int	pixel_h;
+
+	pixel_h = 0;
+	while (pixel_h < data->map.mm_H)
+	{
+		pixel_w = 0;
+		while (pixel_w < data->map.mm_W)
+		{
+			comp(pixel_w, pixel_h, data, r);
+    		// data->minimap.addr[(int)(data->p.x  *(int)data->map.mm_W + data->p.y * pixel_h)] = 0xff0000;
+			pixel_w++;
+		}
+		pixel_h++;
+	}
+    		// data->minimap.addr[(int)(data->p.x * (int)data->map.mm_W + data->p.y)] = 0xff0000;
+    
+    // ft_draw_player(data, data->p.x * data->cellsize, data->p.y * data->cellsize);
+    // ft_draw_player(data, data->p.x, data->p.y);
+
+	return (0);
+}
+
+int		draw_play(int p_w, int p_h, t_cube3D *data,t_ray *r)
+{
+	// if (sqrt(pow(data->joe.x - p_w, 2) + pow(a->joe.y - p_h, 2)) <= a->joe.radius)
+	if (sqrt(powf(data->p.x - r->x, 2) + powf(data->p.y - r->y, 2)) <= data->p.angle)
+		data->minimap.addr[(p_h * (int)data->map.mm_W + p_w)] = 0xff0000;
+	return (0);
 }
