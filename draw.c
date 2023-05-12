@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:39:04 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/11 17:48:25 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:32:53 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void ft_traceray(float rayangle, t_cube3D *data, const int x)
     {
         r.x += cos_ray;
         r.y += sin_ray;
-		// data->minimap.addr[(int)(r.x * (int)data->s_w + r.y)] = 0xff0000;
+		// data->minimap.addr[(int)((r.x*data->cellsize) * (int)data->s_w + (r.y*data->cellsize))] = 0xff0000;
         
-        // my_pixel_put(&data->minimap, (int)(r.x * data->cW_size), (int)(r.y * data->cH_size), 16449536);
+        // my_pixel_put(&data->minimap, (int)(r.x * data->cellsize), (int)(r.y * data->cellsize), 16449536);
     }
     r.dist = sqrt(powf(data->p.x - r.x, 2) + powf(data->p.y - r.y, 2));
     r.dist *= cos((rayangle - data->p.angle)); //ottimizzazone eliminazione fish-eye
@@ -175,7 +175,7 @@ int		draw(t_cube3D *data, int (*comp)(int, int, t_cube3D *))
 	}
     		// data->minimap.addr[(int)(data->p.x * (int)data->map.mm_W + data->p.y)] = 0xff0000;
     
-    // ft_draw_player(data, data->p.x * data->cellsize, data->p.y * data->cellsize);
+    ft_draw_player(data, data->p.x * data->cH_size, data->p.y * data->cW_size);
     // ft_draw_player(data, data->p.x, data->p.y);
 
 	return (0);
@@ -195,9 +195,9 @@ int		draw(t_cube3D *data, int (*comp)(int, int, t_cube3D *))
 //         j = 0;
 //         while(j < data->map.mm_W)
 //         {
-//     		data->minimap.addr[(int)(j * (int)data->map.mm_W + i)] = 0xff0000;
+//     		// data->minimap.addr[(int)(j * (int)data->map.mm_W + i)] = 0xff0000;
 
-//             // my_pixel_put(&data->minimap, (int)j, (int)i, 16449536);
+//             my_pixel_put(&data->minimap, (int)j, (int)i, 16449536);
 //             j++;
 //         }
 //         i++;
@@ -217,9 +217,9 @@ void    ft_draw_player(t_cube3D *data, int x, int y)
         j = x - data->cellsize;
         while(j <= (x + (data->cellsize>>8)))
         {
-    		data->minimap.addr[(int)(j * (int)data->map.mm_W + i)] = 0xff0000;
+    		data->minimap.addr[(int)(i * (int)data->map.mm_W + j)] = 0xff0000;
 
-            // my_pixel_put(data, (int)j, (int)i, 16449536);
+            // my_pixel_put(&data->minimap, (int)j, (int)i, 16449536);
             j++;
         }
         i++;

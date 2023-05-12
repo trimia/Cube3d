@@ -6,7 +6,7 @@
 /*   By: mmariani <mmariani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 15:07:47 by atarsi            #+#    #+#             */
-/*   Updated: 2023/05/11 15:22:10 by mmariani         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:45:19 by mmariani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = img->addr + (y * img->l_bytes + x * (img->bfp / 8));
+	dst = (char*)img->addr + (y * img->l_bytes + x * (img->bfp / 8));
 	*(unsigned int *)dst = color;
 }
 // void	my_mini_pixel_put(t_cube3D *data, int x, int y, int color)
