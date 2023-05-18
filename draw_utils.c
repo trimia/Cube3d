@@ -12,11 +12,18 @@
 
 #include "data.h"
 
-void	my_pixel_put(t_img *img, int x, int y, int color)
+void	mini_pixel_put(t_image *img, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = (char*)img->addr + (y * img->l_bytes + x * (img->bfp / 8));
+	*(unsigned int *)dst = color;
+}
+void	my_pixel_put(t_img *img, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->l_bytes + x * (img->bfp / 8));
 	*(unsigned int *)dst = color;
 }
 // void	my_mini_pixel_put(t_cube3D *data, int x, int y, int color)

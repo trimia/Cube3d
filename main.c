@@ -34,6 +34,12 @@ void    ft_read_file(char *file_name, t_cube3D *data)
     close(fd);
 }
 
+int ft_exit(t_cube3D *data)
+{
+	//free
+	exit(0);
+}
+
 int main(int argc, char *argv[])
 {
     t_cube3D data;
@@ -43,8 +49,9 @@ int main(int argc, char *argv[])
     ft_check_file(argv[1]);
     ft_read_file(argv[1], &data);
     ft_init(&data);
-	mlx_hook(data.win, 2, 0, ft_on, &data);
-	mlx_hook(data.win, 3, 0, ft_off, &data);
+	mlx_hook(data.win, 2, 1L << 0, ft_on, &data);
+	mlx_hook(data.win, 3, 1L << 0, ft_off, &data);
+	mlx_hook(data.win, 17, 1L << 17, ft_exit, &data);
 	mlx_loop_hook(data.mlx, ft_draw, &data);
     //printf("    %f     %f\n", data.p.x, data.p.y);
     mlx_loop(data.mlx);

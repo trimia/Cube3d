@@ -21,8 +21,9 @@
 #define RAD 0.0174533
 
 #define FOV 60
-#define HALF_FOV 30
 #define FOV_R   60 * (PI/180)
+#define HALF_FOV 30
+#define HALF_FOV_r 30 * (PI/180)
 
 #define ROT 0.03299066
 #define HEIGHT	1024	// 2^10
@@ -37,9 +38,26 @@
 # define RIGHT	124
 # define ESC	53
 # define SPEED	0.20
-#define COLOR_PURPLE 16711935
-#define COLOR_GREEN 65280
-#define COLOR_BLUE 7190271
+#define COLOR_PURPLE	16711935
+#define COLOR_GREEN		65280
+#define COLOR_SKY		7190271
+#define COLOR_RED		16449536
+# define HEX_BLACK		0x0000ff
+# define HEX_GREEN		0x00FF00
+# define HEX_PURPLE		0xFF00FF
+# define HEX_SKY		0x6DB6FF
+# define HEX_RED		0xff0000
+# define HEX_BLUE		0x7a7a7a
+//linux binding
+// # define W				119
+// # define A				97
+// # define S				115
+// # define D				100
+// # define LEFT			65361
+// # define RIGHT			65363
+// # define ESC			65307
+
+
 
 //texture
 #define texWidth 64
@@ -93,7 +111,7 @@ typedef struct s_image
 typedef struct s_img
 {
 	void    *img;
-	char    *addr;
+	int    *addr;
 	int     l_bytes;
 	int     bfp;
 	int     endian;
@@ -186,6 +204,8 @@ void    ft_movements(t_cube3D *data);
 
 //draw
 void	my_pixel_put(t_img *img, int x, int y, int color);
+void	mini_pixel_put(t_image *img, int x, int y, int color);
+
 void    ft_draw_player(t_cube3D *data, int x, int y);
 void    ft_draw_cell(t_cube3D *data, int x, int y, int c);
 int     ft_draw(t_cube3D *data);
